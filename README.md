@@ -1,8 +1,8 @@
-# BeyBey E-Commerce Platform
+# 🛒 BeyBey E-Commerce Platform
 
 BeyBey is a comprehensive e-commerce platform built with PHP and JavaScript. It leverages modern web technologies to provide a seamless shopping experience for users and a robust management interface for administrators.
 
-## Features
+## ✨ Features
 
 - **Product Management**: Add, edit, and delete products with ease.
 - **Category Management**: Organize products into categories.
@@ -10,7 +10,7 @@ BeyBey is a comprehensive e-commerce platform built with PHP and JavaScript. It 
 - **Image Handling**: Upload and manage product images.
 - **Responsive Design**: Optimized for both desktop and mobile devices.
 
-## Technologies Used
+## 🛠️ Technologies Used
 
 - **Backend**: PHP
 - **Frontend**: JavaScript, Vue.js
@@ -18,7 +18,7 @@ BeyBey is a comprehensive e-commerce platform built with PHP and JavaScript. It 
 - **Styling**: Tailwind CSS
 - **Routing**: Inertia.js
 
-## Installation
+## 🚀 Installation
 
 ### Prerequisites
 
@@ -30,7 +30,7 @@ BeyBey is a comprehensive e-commerce platform built with PHP and JavaScript. It 
 
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/ItsTimonExe/BeyBEy.git
+    git clone https://github.com/ItsTimonExe/BeyBey.git
     cd BeyBEy
     ```
 
@@ -65,15 +65,15 @@ BeyBey is a comprehensive e-commerce platform built with PHP and JavaScript. It 
     php artisan serve
     ```
 
-## Usage
+## 📖 Usage
 
 - **Admin Panel**: Manage products, categories, and stock.
 - **User Interface**: Browse products, add to cart, and checkout.
 
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request.
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License.
