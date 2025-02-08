@@ -61,16 +61,6 @@ BeyBey is an e-commerce platform built with Vue.js for the frontend and PHP for 
 - **User Authentication**: Login and register users.
 - **Responsive Design**: Optimized for both desktop and mobile devices.
 
-## Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes.
-4. Commit your changes (`git commit -m 'Add some feature'`).
-5. Push to the branch (`git push origin feature-branch`).
-6. Open a pull request.
 
 ## License
 
