@@ -1,67 +1,79 @@
-# BeyBey E-commerce Platform
+# BeyBey E-Commerce Platform
 
-BeyBey is an e-commerce platform built with Vue.js for the frontend and PHP for the backend. This project aims to provide a seamless shopping experience with features like product browsing, cart management, and user authentication.
+BeyBey is a comprehensive e-commerce platform built with PHP and JavaScript. It leverages modern web technologies to provide a seamless shopping experience for users and a robust management interface for administrators.
 
-## Table of Contents
+## Features
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
+- **Product Management**: Add, edit, and delete products with ease.
+- **Category Management**: Organize products into categories.
+- **Stock Management**: Keep track of product inventory.
+- **Image Handling**: Upload and manage product images.
+- **Responsive Design**: Optimized for both desktop and mobile devices.
+
+## Technologies Used
+
+- **Backend**: PHP
+- **Frontend**: JavaScript, Vue.js
+- **Package Managers**: npm, Composer
+- **Styling**: Tailwind CSS
+- **Routing**: Inertia.js
 
 ## Installation
 
 ### Prerequisites
 
-- Node.js
-- npm
-- PHP
+- PHP 7.4 or higher
+- Node.js and npm
 - Composer
 
 ### Steps
 
-1. Clone the repository:
+1. **Clone the repository**:
     ```sh
-    git clone https://github.com/ItsTimonExe/BeyBey.git
-    cd BeyBey
+    git clone https://github.com/ItsTimonExe/BeyBEy.git
+    cd BeyBEy
     ```
 
-2. Install frontend dependencies:
-    ```sh
-    cd BeyBey
-    npm install
-    ```
-
-3. Install backend dependencies:
+2. **Install PHP dependencies**:
     ```sh
     composer install
     ```
 
-4. Set up environment variables:
+3. **Install JavaScript dependencies**:
     ```sh
-    cp .env.example .env
-    # Update .env with your configuration
+    npm install
     ```
 
-5. Run the development server:
+4. **Set up environment variables**:
+    ```sh
+    cp .env.example .env
+    php artisan key:generate
+    ```
+
+5. **Run database migrations**:
+    ```sh
+    php artisan migrate
+    ```
+
+6. **Build the frontend assets**:
     ```sh
     npm run dev
     ```
 
+7. **Start the development server**:
+    ```sh
+    php artisan serve
+    ```
+
 ## Usage
 
-- Navigate to `http://localhost:3000` to view the application.
-- Use the navigation bar to browse products, add items to the cart, and manage your account.
+- **Admin Panel**: Manage products, categories, and stock.
+- **User Interface**: Browse products, add to cart, and checkout.
 
-## Features
+## Contributing
 
-- **Product Browsing**: View and search for products.
-- **Cart Management**: Add, remove, and update items in the cart.
-- **User Authentication**: Login and register users.
-- **Responsive Design**: Optimized for both desktop and mobile devices.
-
+Contributions are welcome! Please fork the repository and submit a pull request.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
