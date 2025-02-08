@@ -1,16 +1,15 @@
 <?php
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminProductController;
+
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\UserController;
+
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', function () {
@@ -79,11 +78,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
     //products routes
-    Route::get('/products', [ProductController::class, 'index'])->name('admin.products.index');
-    Route::post('/products/store',[ProductController::class,'store'])->name('admin.products.store');
-    Route::put('/products/update/{id}',[ProductController::class,'update'])->name('admin.products.update');
-    Route::delete('/products/image/{id}',[ProductController::class,'deleteImage'])->name('admin.products.image.delete');
-    Route::delete('/products/destory/{id}',[ProductController::class,'destory'])->name('admin.products.destory');
+    Route::get('/products', [AdminProductController::class, 'index'])->name('admin.products.index');
+    Route::post('/products/store',[AdminProductController::class,'store'])->name('admin.products.store');
+    Route::put('/products/update/{id}',[AdminProductController::class,'update'])->name('admin.products.update');
+    Route::delete('/products/image/{id}',[AdminProductController::class,'deleteImage'])->name('admin.products.image.delete');
+    Route::delete('/admin/products/{id}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
 
 
 
