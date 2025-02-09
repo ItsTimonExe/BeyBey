@@ -1,12 +1,12 @@
 <template>
     <AdminLayout>
-        <SpecialOffersList :SpecialOffers="SpecialOffers" />
+        <SpecialOffersList :specialOffers="specialOffers" />
     </AdminLayout>
 </template>
 
 <script setup>
 defineProps({
-    SpecialOffers: Array
+    specialOffers: Array
 });
 import AdminLayout from '../Components/AdminLayout.vue';
 import SpecialOffersList from './SpecialOffersList.vue';

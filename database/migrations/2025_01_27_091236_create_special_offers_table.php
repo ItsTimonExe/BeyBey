@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id(); // ID automatique
             $table->string('title'); // Titre de l'offre
             $table->text('description')->nullable(); // Description (nullable si vide)
-            $table->string('image'); // Chemin de l'image
+            $table->string('image')->nullable(); // Chemin de l'image
             $table->timestamps(); // created_at et updated_at
         });
     }

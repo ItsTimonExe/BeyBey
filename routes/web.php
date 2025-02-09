@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminContact;
 use App\Http\Controllers\Admin\AdminCategories;
+use App\Http\Controllers\Admin\AdminSpecialOffers;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -84,8 +85,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::put('/products/update/{id}',[AdminProductController::class,'update'])->name('admin.products.update');
     Route::delete('/admin/products/{id}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
 
-    //Special Offers routes
-
+    // Special Offers routes
+    Route::get('/special_offers', [AdminSpecialOffers::class, 'index'])->name('admin.special_offers.index');
+    Route::post('/special_offers', [AdminSpecialOffers::class, 'store'])->name('admin.special_offers.store');
+    Route::put('/special_offers/{id}', [AdminSpecialOffers::class, 'update'])->name('admin.special_offers.update');
+    Route::delete('/special_offers/{id}', [AdminSpecialOffers::class, 'destroy'])->name('admin.special_offers.destroy');
     //Users routes
 
     //Orders routes
