@@ -1,12 +1,12 @@
 <template>
-    <AdminLayout>
-        <ContactList :contacts="contacts" />
-    </AdminLayout>
+  <AdminLayout>
+    <ContactList :contacts="contacts" />
+  </AdminLayout>
 </template>
 
 <script setup>
 defineProps({
-    contacts: Array
+  contacts: Array
 });
 import AdminLayout from '../Components/AdminLayout.vue';
 import ContactList from './ContactList.vue';

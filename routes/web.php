@@ -2,7 +2,8 @@
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminProductController;
-
+use App\Http\Controllers\Admin\AdminContact;
+use App\Http\Controllers\Admin\AdminCategories;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -90,7 +91,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     //Orders routes
 
     //Categories routes
-
+        Route::get('/categories', [AdminCategories::class, 'index'])->name('admin.categories.index');
+        Route::post('/categories', [AdminCategories::class, 'storeOrUpdate'])->name('admin.categories.store');
+        Route::put('/categories/{id}', [AdminCategories::class, 'storeOrUpdate'])->name('admin.categories.update');
+        Route::delete('/categories/{id}', [AdminCategories::class, 'destroy'])->name('admin.categories.destroy');
+    // contact routes
+    Route::get('/contacts', [AdminContact::class, 'index'])->name('admin.contacts.index');
+    Route::get('/contacts/{id}', [AdminContact::class, 'show'])->name('admin.contacts.show');
+    Route::post('/contacts', [AdminContact::class, 'store'])->name('admin.contacts.store');
+    Route::put('/contacts/{id}', [AdminContact::class, 'update'])->name('admin.contacts.update');
+    Route::delete('/contacts/{id}', [AdminContact::class, 'destroy'])->name('admin.contacts.destroy');
 
 
 
