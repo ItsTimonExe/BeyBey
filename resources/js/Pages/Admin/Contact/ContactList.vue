@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto p-6 min-h-screen bg-gray-100">
+  <div class="  p-6 min-h-screen bg-white rounded-lg shadow-md">
     <h1 class="text-3xl font-bold mb-6 text-gray-700 text-center">Contact List</h1>
     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
       <table class="min-w-full bg-white">

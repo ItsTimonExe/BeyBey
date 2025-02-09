@@ -1,5 +1,5 @@
 <template>
-  <section class="p-6 bg-gray-100 min-h-screen">
+  <section class="p-6 bg-white rounded-lg shadow-md min-h-screen">
     <div class="container mx-auto">
       <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-gray-800">Product Manager</h1>
