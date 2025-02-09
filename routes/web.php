@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\Admin\AdminContact;
 use App\Http\Controllers\Admin\AdminCategories;
 use App\Http\Controllers\Admin\AdminSpecialOffers;
+use App\Http\Controllers\Admin\AdminUsers;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -13,13 +14,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 
 
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
-
-    // Add more admin routes here
-});
 
 Route::post('/contact', [ContactController::class, 'store']);
 Route::get('/products', [ProductController::class, 'index']);
@@ -91,7 +85,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::put('/special_offers/{id}', [AdminSpecialOffers::class, 'update'])->name('admin.special_offers.update');
     Route::delete('/special_offers/{id}', [AdminSpecialOffers::class, 'destroy'])->name('admin.special_offers.destroy');
     //Users routes
-
+    Route::get('/users', [AdminUsers::class, 'index'])->name('admin.users.index');
     //Orders routes
 
     //Categories routes
