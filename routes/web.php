@@ -66,7 +66,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//admin routs
+//Admin routes
 
 Route::group(['prefix' => 'admin', 'middleware' => 'redirectAdmin'], function () {
     Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
@@ -81,8 +81,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/products', [AdminProductController::class, 'index'])->name('admin.products.index');
     Route::post('/products/store',[AdminProductController::class,'store'])->name('admin.products.store');
     Route::put('/products/update/{id}',[AdminProductController::class,'update'])->name('admin.products.update');
-    Route::delete('/products/image/{id}',[AdminProductController::class,'deleteImage'])->name('admin.products.image.delete');
     Route::delete('/admin/products/{id}', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
+
+    //Special Offers routes
+
+    //Users routes
+
+    //Orders routes
+
+    //Categories routes
+
 
 
 
