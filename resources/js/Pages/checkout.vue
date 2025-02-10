@@ -32,6 +32,7 @@ const userInfo = ref({
     address: "",
     city: "",
     zipCode: "",
+    phone: "", // Added phone field
     paymentMethod: "credit_card", // Default method
 });
 
@@ -42,7 +43,8 @@ const placeOrder = () => {
         userInfo.value.email &&
         userInfo.value.address &&
         userInfo.value.city &&
-        userInfo.value.zipCode
+        userInfo.value.zipCode &&
+        userInfo.value.phone // Added phone validation
     ) {
         alert("Order placed successfully!");
         // Add further logic here (e.g., saving to an API)
@@ -121,6 +123,18 @@ const placeOrder = () => {
                                 type="text"
                                 id="zipCode"
                                 placeholder="Your ZIP Code"
+                                class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
+                            />
+                        </div>
+
+                        <!-- Phone -->
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                            <input
+                                v-model="userInfo.phone"
+                                type="text"
+                                id="phone"
+                                placeholder="Your Phone Number"
                                 class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500"
                             />
                         </div>

@@ -1,48 +1,27 @@
 <script setup>
-import {ref} from "vue";
-import {useRouter} from "vue-router";
-import Footer from "../components/footer.vue";
-import navbar from "../components/navBar.vue";
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import Footer from "../Components/footer.vue";
+import navbar from "../Components/navBar.vue";
+import axios from "axios";
+import { Link as InertiaLink } from '@inertiajs/inertia-vue3';
 
-// Données des articles du panier (réactif)
-const cartItems = ref([
-    {
-        id: 1,
-        name: "Product 1",
-        price: 29.99,
-        quantity: 2,
-        image: new URL("../assets/image/t1-h.jpg", import.meta.url).href,
-    },
-    {
-        id: 2,
-        name: "Product 2",
-        price: 49.99,
-        quantity: 1,
-        image: new URL("../assets/image/t8-h.jpg", import.meta.url).href,
-    },
-    {
-        id: 3,
-        name: "Product 3",
-        price: 19.99,
-        quantity: 3,
-        image: new URL("../assets/image/t5-h.jpg", import.meta.url).href,
-    },
-]);
+// Reactive data for cart items
+const cartItems = ref([]);
+const discountCode = ref(""); // Discount code entered by the user
+const isCodeApplied = ref(false); // Indicates if the discount code is valid
+const discountValue = ref(0); // Discount value
+const showDiscountMessage = ref(false); // Controls the display of discount messages
 
-const discountCode = ref(""); // Code promo entré par l'utilisateur
-const isCodeApplied = ref(false); // Indique si le code promo est valide
-const discountValue = ref(0); // Valeur de la remise
-const showDiscountMessage = ref(false); // Contrôle l'affichage des messages de remise
-
-// Fonction pour formater les montants
+// Function to format currency
 const formatCurrency = (value) => {
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat("en-TN", {
         style: "currency",
-        currency: "USD",
+        currency: "TND",
     }).format(value);
 };
 
-// Calculer le sous-total
+// Calculate subtotal
 const calculateSubtotal = () => {
     return cartItems.value.reduce(
         (total, item) => total + item.price * item.quantity,
@@ -50,21 +29,21 @@ const calculateSubtotal = () => {
     );
 };
 
-// Calculer les taxes
+// Calculate taxes
 const calculateTaxes = () => {
-    return calculateSubtotal() * 0.1; // Supposons un taux de taxes à 10%
+    return calculateSubtotal() * 0.1; // Assume a tax rate of 10%
 };
 
-// Calculer le total après remise
+// Calculate total after discount
 const calculateTotal = () => {
     return calculateSubtotal() + calculateTaxes() - discountValue.value;
 };
 
-// Appliquer un code promo
+// Apply discount code
 const applyDiscountCode = () => {
-    showDiscountMessage.value = true; // Permet d'afficher les messages après clic sur le bouton
+    showDiscountMessage.value = true; // Show messages after clicking the button
     if (discountCode.value === "PROMO10") {
-        discountValue.value = calculateSubtotal() * 0.1; // Réduction de 10%
+        discountValue.value = calculateSubtotal() * 0.1; // 10% discount
         isCodeApplied.value = true;
     } else {
         discountValue.value = 0;
@@ -72,61 +51,113 @@ const applyDiscountCode = () => {
     }
 };
 
-// Rafraîchir le panier après chaque modification
+// Refresh the cart after each modification
 const refreshCart = () => {
-    applyDiscountCode(); // Réapplique la remise lors du rafraîchissement
+    applyDiscountCode(); // Reapply the discount when refreshing
 };
 
-// Supprimer un article du panier
-const removeItem = (id) => {
-    cartItems.value = cartItems.value.filter((item) => item.id !== id);
-    refreshCart(); // Met à jour le panier après suppression
+// Remove an item from the cart
+const removeItem = async (product_id) => {
+    try {
+        await axios.delete(`/cart/items/${product_id}`);
+        cartItems.value = cartItems.value.filter(item => item.product_id !== product_id);
+    } catch (err) {
+        console.error("Error removing product from cart:", err);
+    }
 };
-
-// Modifier la quantité d'un produit
-const updateQuantity = (item, change) => {
+// Update the quantity of a product
+const updateQuantity = async (item, change) => {
     item.quantity += change;
     if (item.quantity < 1) {
-        removeItem(item.id); // Supprime l'article si quantité devient 0
+        await removeItem(item.id); // Remove the item if quantity becomes 0
     } else {
-        refreshCart(); // Rafraîchit le panier sinon
+        try {
+            await axios.put(`/cart/items/${item.id}`, { quantity: item.quantity });
+            refreshCart(); // Refresh the cart otherwise
+        } catch (err) {
+            console.error("Error updating item quantity:", err);
+        }
     }
 };
 
-// Rediriger vers la page de paiement
+// Redirect to the checkout page
 const router = useRouter();
-const goToCheckout = () => {
-    router.push("/checkout");
+
+
+// Fetch cart items from the backend
+// Helper function to add or update items in the cart
+const addOrUpdateCartItem = (item) => {
+    const existingItem = cartItems.value.find(cartItem => cartItem.product_id === item.product_id);
+    if (existingItem) {
+        existingItem.quantity += item.quantity;
+    } else {
+        cartItems.value.push(item);
+    }
 };
+
+// Fetch cart items from the backend
+const fetchCartItems = async () => {
+    try {
+        const response = await axios.get('/cart/items');
+        const cartData = response.data;
+
+        // Fetch product details for each cart item
+        const productRequests = cartData.map(item => axios.get(`/api/product/${item.product_id}`));
+        const productResponses = await Promise.all(productRequests);
+
+        // Map cart items with product images and add/update them in the cart
+        cartData.forEach((item, index) => {
+            const cartItem = {
+                ...item,
+                image: productResponses[index].data.image || 'default-image-path.jpg' // Fallback image
+            };
+            addOrUpdateCartItem(cartItem);
+        });
+
+        console.log(cartItems.value);
+        // Log the image value for each item
+        cartItems.value.forEach(item => {
+            console.log(item.image);
+        });
+    } catch (err) {
+        console.error("Error fetching cart items:", err);
+    }
+};
+
+onMounted(() => {
+    fetchCartItems();
+});
 </script>
 
 <template>
     <navbar />
     <div class="container mx-auto max-w-7xl p-6 space-y-12">
-        <!-- Titre de la page -->
+        <!-- Page title -->
         <h1 class="text-4xl font-semibold text-center text-gray-800 tracking-wide">
             My Cart
         </h1>
 
-        <!-- Contenu principal -->
+        <!-- Main content -->
         <div v-if="cartItems.length > 0" class="grid lg:grid-cols-12 gap-8">
-            <!-- Liste des produits -->
+            <!-- Product list -->
             <div class="lg:col-span-8 space-y-8">
                 <div
                     v-for="item in cartItems"
                     :key="item.id"
                     class="flex items-center bg-white border border-gray-200 rounded-lg shadow-sm px-4 transition hover:shadow-md"
                 >
-                    <!-- Image du produit -->
+
+                    <!-- Product image -->
                     <div class="w-[140px] h-[140px] rounded-lg overflow-hidden flex-shrink-0">
                         <img
-                            :src="item.image"
+                            :src="`/${item.image}`"
                             :alt="item.name"
                             class="w-full h-full object-cover"
+                            @error="handleImageError"
                         />
                     </div>
 
-                    <!-- Détails du produit -->
+                    <!-- Product details -->
                     <div class="ml-6 flex-1">
                         <h2 class="text-lg font-medium text-gray-900">
                             {{ item.name }}
@@ -164,7 +195,7 @@ const goToCheckout = () => {
                             +
                         </button>
                         <button
-                            @click="removeItem(item.id)"
+                            @click="removeItem(item.product_id)"
                             class="flex items-center justify-center w-8 h-8 bg-red-100 text-red-500 rounded-full hover:bg-red-200 transition"
                         >
                             ✕
@@ -173,13 +204,13 @@ const goToCheckout = () => {
                 </div>
             </div>
 
-            <!-- Section Résumé -->
+            <!-- Summary section -->
             <div class="lg:col-span-4 p-6 bg-gray-50 rounded-xl shadow-sm border border-gray-200 space-y-6">
                 <h2 class="text-lg font-medium text-gray-800 text-center">
                     Order Summary
                 </h2>
 
-                <!-- Liste des produits récapitulatifs -->
+                <!-- Summary product list -->
                 <div
                     v-for="item in cartItems"
                     :key="item.id"
@@ -191,7 +222,7 @@ const goToCheckout = () => {
 
                 <hr class="border-gray-300" />
 
-                <!-- Totaux et réductions -->
+                <!-- Totals and discounts -->
                 <div class="space-y-3 text-sm">
                     <div class="flex justify-between">
                         <span class="text-gray-600">Subtotal:</span>
@@ -215,7 +246,7 @@ const goToCheckout = () => {
                     <span class="text-teal-500">{{ formatCurrency(calculateTotal()) }}</span>
                 </div>
 
-                <!-- Champ Promo -->
+                <!-- Promo field -->
                 <div class="flex flex-col space-y-3">
                     <input
                         v-model="discountCode"
@@ -236,17 +267,19 @@ const goToCheckout = () => {
                         Invalid discount code.
                     </p>
                 </div>
+                <inertia-link
+                    class="w-full py-3 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition text-center block"
+                    href="/checkout">
 
-                <button
-                    @click="goToCheckout"
-                    class="w-full py-3 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 transition"
-                >
-                    Go to Checkout
-                </button>
+
+                        Go to Checkout
+
+                </inertia-link>
+
             </div>
         </div>
 
-        <!-- Message si panier vide -->
+        <!-- Message if cart is empty -->
         <div v-else class="flex flex-col items-center space-y-4 text-center">
             <h2 class="text-xl font-semibold text-gray-700">
                 Your cart is empty.

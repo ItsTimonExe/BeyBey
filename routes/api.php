@@ -6,7 +6,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SpecialOfferController;
 use App\Http\Controllers\CartController;
 
-
+Route::delete('/cart/items/{product_id}', [CartController::class, 'removeFromCart']);
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('api.cart.add');
+Route::get('/cart/items', [CartController::class, 'getCart'])->name('api.cart.items');
 
 Route::get('/product/{id}/related', [ProductController::class, 'getRelatedProducts']);
 Route::get('/products/{id}', [ProductController::class, 'show']);

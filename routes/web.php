@@ -8,12 +8,15 @@ use App\Http\Controllers\Admin\AdminSpecialOffers;
 use App\Http\Controllers\Admin\AdminUsers;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 
-
+Route::delete('/cart/items/{product_id}', [CartController::class, 'removeFromCart']);
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+Route::get('/cart/items', [CartController::class, 'getCart'])->name('cart.items');
 
 Route::post('/contact', [ContactController::class, 'store']);
 Route::get('/products', [ProductController::class, 'index']);
@@ -42,6 +45,10 @@ Route::get('/shop', function () {
 Route::get('/contact', function () {
     return Inertia::render('contact');
 })->name('contact');
+
+Route::get('/checkout', function () {
+    return Inertia::render('checkout');
+})->name('checkout');
 
 Route::get('/', function () {
     return Inertia::render('home', [

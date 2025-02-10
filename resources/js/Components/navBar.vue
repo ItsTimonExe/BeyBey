@@ -94,11 +94,11 @@
 </template>
 
 <script setup>
-import {computed,ref} from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import { usePage } from "@inertiajs/vue3";
 
 const dropdownOpen = ref(false);
-const cartCount = ref(2);
+const cartCount = ref(0);
 const page = usePage();
 const user = computed(() => page.props.auth.user);
 
@@ -106,6 +106,20 @@ const toggleDropdown = () => {
     dropdownOpen.value = !dropdownOpen.value;
 };
 const show = ref(false);
+
+// Fetch cart items and calculate the total count
+const fetchCartCount = async () => {
+    try {
+        const response = await axios.get('/cart/items');
+        cartCount.value = response.data.reduce((total, item) => total + item.quantity, 0);
+    } catch (err) {
+        console.error('Error fetching cart items:', err);
+    }
+};
+
+onMounted(() => {
+    fetchCartCount();
+});
 </script>
 
 <style scoped>

@@ -1,25 +1,21 @@
 <script setup>
+import Swal from 'sweetalert2';
 import Footer from "../components/footer.vue";
 import navbar from "../components/navBar.vue";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
+const product = ref(null);
+const error = ref(null);
+const mainImage = ref(null);
+const selectedSize = ref(null);
+const relatedProducts = ref([]);
+const quantity = ref(1);
 
-const product = ref(null); // Stocke les détails du produit
-const error = ref(null); // Stocke les erreurs éventuelles
-const mainImage = ref(null); // Stocke l'image affichée
-const selectedSize = ref(null); // Taille sélectionnée par l'utilisateur
-;
-const relatedProducts = ref([]); // Stocke les produits similaires
-// Fonction pour récupérer l'ID produit depuis Laravel
 function getProductIdFromURL() {
-    // Extraire le chemin actuel
     const path = window.location.pathname;
-
-    // Utiliser une expression régulière pour capturer l'ID depuis l'URL
     const match = path.match(/\/product\/(\d+)/);
-
-    return match ? match[1] : null; // Retourne l'ID ou null s'il n'est pas trouvé
+    return match ? match[1] : null;
 }
 
 const productId = getProductIdFromURL();
@@ -31,31 +27,27 @@ if (!productId) {
 
 console.log("ID produit extrait de l'URL :", productId);
 
-// Fonction pour chercher les détails du produit
 async function fetchProduct() {
     if (!productId) {
         console.error("Invalid Product ID:", productId);
         error.value = "ID produit manquant ou non valide.";
-        return; // Arrête si productId est invalide
+        return;
     }
 
     try {
-        // Appel API pour récupérer le produit
         const response = await axios.get(`/api/product/${productId}`);
-        // Transformation des données reçues pour les rendre compatibles avec le format attendu
         const rawData = response.data;
 
         product.value = {
-            ...rawData, // Garde les données de base
-            sizes: rawData.size ? rawData.size.split(", ") : [], // Transforme "size" (chaîne de caractères) en tableau
-            oldPrice: rawData.old_price, // Renomme "old_price" en "oldPrice"
+            ...rawData,
+            sizes: rawData.size ? rawData.size.split(", ") : [],
+            oldPrice: rawData.old_price,
             images: [
                 `http://127.0.0.1:8000/${rawData.image}`,
                 `http://127.0.0.1:8000/${rawData.hover_image}`
-            ].filter(Boolean),  // Intègre les images dans un tableau
+            ].filter(Boolean),
         };
 
-        // Définit l'image principale comme la première image
         mainImage.value = product.value.images.length > 0 ? product.value.images[0] : null;
         console.log(product.value.images);
 
@@ -65,48 +57,42 @@ async function fetchProduct() {
     }
 }
 
-// Fonction pour ajouter au panier
-
-axios.defaults.baseURL = 'http://127.0.0.1:8000';
-axios.defaults.withCredentials = true;
-
-// Add to cart
-const addToCart = async (product) => {
-    try {
-        const token = localStorage.getItem("auth_token");
-        await axios.post(
-            "/api/cart/add",
-            {
-                product_id: product.id,
-                name: product.name,
-                price: product.price,
-                quantity: 1,
-                size: selectedSize.value,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        );
-        alert("Product added to cart!");
-    } catch (error) {
-        console.error("Error adding to cart:", error.response?.data || error.message);
-        alert("Failed to add product to cart.");
-    }
-};
-
-// Fonction pour chercher les produits similaires
 async function fetchRelatedProducts() {
     try {
         const response = await axios.get(`/api/product/${productId}/related`);
-        relatedProducts.value = response.data; // On suppose que l'API renvoie un tableau de produits similaires
+        relatedProducts.value = response.data;
     } catch (err) {
         console.error("Error fetching related products:", err);
     }
 }
 
-// Montée du composant : lancer l'appel API
+async function addToCart(product) {
+    if (!selectedSize.value) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Size Required',
+            text: 'You must select a size before adding to cart.',
+        });
+        return;
+    }
+
+    try {
+        const response = await axios.post('/cart/add', {
+            product_id: product.id,
+            size: selectedSize.value,
+            quantity: quantity.value,
+        });
+        Swal.fire({
+            icon: 'success',
+            title: 'Added to Cart',
+            text: response.data.message,
+        });
+    } catch (err) {
+        console.error("Error adding to cart:", err);
+        alert("Failed to add product to cart.");
+    }
+}
+
 onMounted(() => {
     fetchProduct();
     fetchRelatedProducts();
@@ -115,20 +101,16 @@ onMounted(() => {
 
 <template>
     <navbar />
-    <!-- Affichage du produit -->
     <div v-if="product" class="min-h-screen bg-gray-100 py-8">
         <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Galerie d'images -->
             <div>
                 <div class="relative">
                     <img
                         :src="mainImage"
                         :alt="product.name"
-                        class="w-full  object-cover rounded-lg"
+                        class="w-full object-cover rounded-lg"
                     />
                 </div>
-
-                <!-- Miniatures -->
                 <div class="flex space-x-4 mt-4">
                     <img
                         v-for="(image, index) in product.images"
@@ -140,8 +122,6 @@ onMounted(() => {
                     />
                 </div>
             </div>
-
-            <!-- Détails du produit -->
             <div class="bg-white p-6 rounded-lg shadow">
                 <h1 class="text-2xl font-semibold text-gray-800">{{ product.name }}</h1>
                 <div class="mt-4">
@@ -151,8 +131,6 @@ onMounted(() => {
                     </p>
                 </div>
                 <p class="text-gray-600 mt-6 leading-6">{{ product.description }}</p>
-
-                <!-- Sélection de taille -->
                 <div class="mt-6">
                     <h3 class="text-lg font-medium text-gray-800">Taille :</h3>
                     <div class="flex space-x-4 mt-2">
@@ -167,11 +145,17 @@ onMounted(() => {
                             {{ size }}
                         </button>
                     </div>
-                    <!-- Show selected size -->
                     <p v-if="selectedSize" class="mt-4 text-gray-800">Taille sélectionnée : {{ selectedSize }}</p>
                 </div>
-
-                <!-- Add to Cart Button -->
+                <div class="mt-6">
+                    <h3 class="text-lg font-medium text-gray-800">Quantity:</h3>
+                    <input
+                        type="number"
+                        v-model="quantity"
+                        min="1"
+                        class="mt-2 p-2 border border-gray-300 rounded-lg w-20"
+                    />
+                </div>
                 <div class="p-4">
                     <button
                         @click="addToCart(product)"
@@ -182,12 +166,10 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-
         <div v-if="relatedProducts.length" class="mt-12 bg-gray-300 py-8">
             <div class="container mx-auto">
                 <h2 class="text-center text-3xl font-bold text-gray-800 mb-6">You may also like</h2>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <!-- Product Card -->
                     <div
                         v-for="product in relatedProducts"
                         :key="product.id"
@@ -195,13 +177,11 @@ onMounted(() => {
                     >
                         <a :href="`/product/${product.id}`" class="group">
                             <div class="relative">
-                                <!-- Main Image -->
                                 <img
                                     :src="`http://127.0.0.1:8000/${product.image}`"
                                     :alt="product.name"
                                     class="w-full h-[300px] object-cover transition-all duration-500 group-hover:opacity-0"
                                 />
-                                <!-- Hover Image -->
                                 <img
                                     :src="`http://127.0.0.1:8000/${product.hover_image}`"
                                     :alt="product.name"
@@ -223,7 +203,6 @@ onMounted(() => {
                                 </div>
                             </div>
                         </a>
-                        <!-- Add to Cart Button -->
                         <div class="p-4">
                             <button
                                 class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 text-sm font-medium shadow-sm"
@@ -236,8 +215,6 @@ onMounted(() => {
             </div>
         </div>
     </div>
-
-
     <Footer/>
 </template>
 

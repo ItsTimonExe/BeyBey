@@ -19,6 +19,7 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
+        "@inertiajs/inertia-vue3": "^0.6.0",
         "element-plus": "^2.9.4",
         "filepond": "^4.32.7",
         "filepond-plugin-image-preview": "^4.6.12",
