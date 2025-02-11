@@ -69,11 +69,12 @@
                     </a>
                     <!-- Add to Cart Button -->
                     <div class="p-4">
-                        <button
-                            class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 text-sm font-medium shadow-sm"
+                        <a
+                            :href="`/product/${product.id}`"
+                            class="block w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 text-sm font-medium shadow-sm text-center"
                         >
-                            Ajouter au panier
-                        </button>
+                            Visit Product
+                        </a>
                     </div>
                 </div>
             </div>

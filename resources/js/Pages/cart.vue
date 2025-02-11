@@ -87,7 +87,7 @@ const router = useRouter();
 // Fetch cart items from the backend
 // Helper function to add or update items in the cart
 const addOrUpdateCartItem = (item) => {
-    const existingItem = cartItems.value.find(cartItem => cartItem.product_id === item.product_id);
+    const existingItem = cartItems.value.find(cartItem => cartItem.product_id === item.product_id && cartItem.size === item.size);
     if (existingItem) {
         existingItem.quantity += item.quantity;
     } else {
@@ -166,6 +166,12 @@ onMounted(() => {
                             Unit Price:
                             <span class="font-semibold text-teal-600">
                             {{ formatCurrency(item.price) }}
+                        </span>
+                        </p>
+                        <p class="text-sm text-gray-500">
+                            Size:
+                            <span class="font-semibold text-gray-800">
+                            {{ item.size }}
                         </span>
                         </p>
                         <p class="text-sm text-gray-500">

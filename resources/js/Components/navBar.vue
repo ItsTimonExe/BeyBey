@@ -59,9 +59,9 @@
                         <ul v-if="user" class="py-2">
 
                             <li>
-                                <a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">profile</a>
-                                <a href="/dashboard" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">dashboard</a>
-                                <a v-if="user.isAdmin" href="/admin/dashboard" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">admin dashboard</a>
+                                <a href="/profile" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile</a>
+                                <a href="/dashboard" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Dashboard</a>
+                                <a v-if="user.isAdmin" href="/admin/dashboard" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Admin dashboard</a>
                                 <a
                                     href="#"
                                     @click.prevent="$inertia.post(route('logout'))"
@@ -116,6 +116,7 @@ const fetchCartCount = async () => {
         console.error('Error fetching cart items:', err);
     }
 };
+
 
 onMounted(() => {
     fetchCartCount();

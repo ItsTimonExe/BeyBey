@@ -86,6 +86,8 @@ async function addToCart(product) {
             icon: 'success',
             title: 'Added to Cart',
             text: response.data.message,
+        }).then(() => {
+            window.location.reload();
         });
     } catch (err) {
         console.error("Error adding to cart:", err);
@@ -204,11 +206,12 @@ onMounted(() => {
                             </div>
                         </a>
                         <div class="p-4">
-                            <button
-                                class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 text-sm font-medium shadow-sm"
+                            <a
+                                :href="`/product/${product.id}`"
+                                class="block w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 text-sm font-medium shadow-sm text-center"
                             >
-                                Ajouter au panier
-                            </button>
+                                Visit Product
+                            </a>
                         </div>
                     </div>
                 </div>
