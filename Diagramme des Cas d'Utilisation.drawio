@@ -42,30 +42,6 @@
         <mxCell id="5I71og-eEB45eZ9uHMb0-2" value="Admin" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
           <mxGeometry x="1470" y="390" width="30" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="5I71og-eEB45eZ9uHMb0-6" value="" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="657" y="30" width="120" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="5I71og-eEB45eZ9uHMb0-11" value="Text" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="687" y="55" width="60" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="5I71og-eEB45eZ9uHMb0-13" value="" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="667" y="40" width="120" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="5I71og-eEB45eZ9uHMb0-14" value="Text" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="697" y="65" width="60" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="5I71og-eEB45eZ9uHMb0-15" value="" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="677" y="50" width="120" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="5I71og-eEB45eZ9uHMb0-16" value="Text" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="707" y="75" width="60" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="5I71og-eEB45eZ9uHMb0-17" value="" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="687" y="60" width="120" height="80" as="geometry" />
-        </mxCell>
-        <mxCell id="5I71og-eEB45eZ9uHMb0-18" value="Text" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="717" y="85" width="60" height="30" as="geometry" />
-        </mxCell>
         <mxCell id="5I71og-eEB45eZ9uHMb0-19" value="" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="1070" y="620" width="120" height="80" as="geometry" />
         </mxCell>
