@@ -16,7 +16,7 @@ BeyBey is a comprehensive e-commerce platform built with PHP and JavaScript. It 
 - **Frontend**: JavaScript, Vue.js
 - **Package Managers**: npm, Composer
 - **Styling**: Tailwind CSS
-- **Routing**: Inertia.js
+- **Routing**: Inertia.js with Laravel `web.php` for backend routing
 
 ## 🚀 Installation
 
@@ -31,7 +31,7 @@ BeyBey is a comprehensive e-commerce platform built with PHP and JavaScript. It 
 1. **Clone the repository**:
     ```sh
     git clone https://github.com/ItsTimonExe/BeyBey.git
-    cd BeyBEy
+    cd BeyBey
     ```
 
 2. **Install PHP dependencies**:
