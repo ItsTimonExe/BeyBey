@@ -2,21 +2,27 @@
 import { ref } from "vue";
 import Footer from "../components/footer.vue";
 import navbar from "../components/navBar.vue";
+import axios from "axios";
 
-// Example cart data
-const cartItems = ref([
-    { id: 1, name: "Product 1", price: 29.99, quantity: 2 },
-    { id: 2, name: "Product 2", price: 49.99, quantity: 1 },
-]);
+// Fetch cart items from the backend
+const cartItems = ref([]);
+
+const fetchCartItems = async () => {
+    try {
+        const response = await axios.get('/cart/items');
+        cartItems.value = response.data;
+    } catch (err) {
+        console.error("Error fetching cart items:", err);
+    }
+};
 
 // Function to format currency
 const formatCurrency = (value) => {
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat("en-TN", {
         style: "currency",
-        currency: "USD",
+        currency: "TND",
     }).format(value);
 };
-
 // Compute total
 const calculateTotal = () => {
     return cartItems.value.reduce(
@@ -32,26 +38,37 @@ const userInfo = ref({
     address: "",
     city: "",
     zipCode: "",
-    phone: "", // Added phone field
-    paymentMethod: "credit_card", // Default method
+    phone: "",
+    paymentMethod: "credit_card",
 });
 
 // Form validation and order action
-const placeOrder = () => {
+const placeOrder = async () => {
     if (
         userInfo.value.fullName &&
         userInfo.value.email &&
         userInfo.value.address &&
         userInfo.value.city &&
         userInfo.value.zipCode &&
-        userInfo.value.phone // Added phone validation
+        userInfo.value.phone
     ) {
-        alert("Order placed successfully!");
-        // Add further logic here (e.g., saving to an API)
+        try {
+            await axios.post('/checkout', {
+                userInfo: userInfo.value,
+                cartItems: cartItems.value,
+                total: calculateTotal(),
+            });
+            alert("Order placed successfully!");
+        } catch (err) {
+            console.error("Error placing order:", err);
+            alert("Failed to place order.");
+        }
     } else {
         alert("Please fill out all fields.");
     }
 };
+
+fetchCartItems();
 </script>
 
 <template>
@@ -196,7 +213,3 @@ const placeOrder = () => {
     </div>
     <Footer />
 </template>
-
-<style scoped>
-/* Optional customizations if needed */
-</style>

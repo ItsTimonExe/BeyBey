@@ -4,9 +4,9 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -398.2454,
-    "scrollLeft": -433.5207,
-    "zoomLevel": 0.55,
+    "scrollTop": -700,
+    "scrollLeft": -798.3804,
+    "zoomLevel": 1,
     "show": 431,
     "database": 4,
     "databaseName": "",
@@ -216,7 +216,6 @@
           "fa994c08-0a05-4d08-9ed6-85953163f010",
           "efaa5617-d0b5-4498-a91b-9a59aaaf5968",
           "1224b163-7503-4809-93ef-ba4e88b0896d",
-          "c5ce2c1e-e0af-4251-b8b8-d246febac714",
           "5f687f41-160a-4eda-9c37-81989d2f6eb4",
           "2b62a3f1-9cb7-425c-ba2c-c9f20dbc988a"
         ],
@@ -241,7 +240,7 @@
           "color": ""
         },
         "meta": {
-          "updateAt": 1737806432477,
+          "updateAt": 1739617887953,
           "createAt": 1737806432477
         }
       },
@@ -317,15 +316,15 @@
           "16c432b2-ead6-4366-b7a9-78a2fb57345f"
         ],
         "ui": {
-          "x": 1475.7777,
-          "y": 49.9999,
+          "x": 1579.7777,
+          "y": 8.9999,
           "zIndex": 6,
           "widthName": 82,
           "widthComment": 60,
           "color": ""
         },
         "meta": {
-          "updateAt": 1737806432477,
+          "updateAt": 1739617902122,
           "createAt": 1737806432477
         }
       },
@@ -2042,7 +2041,7 @@
             "2b62a3f1-9cb7-425c-ba2c-c9f20dbc988a"
           ],
           "x": 1690.9237,
-          "y": 1150.5558999999998,
+          "y": 1126.5558999999998,
           "direction": 8
         },
         "end": {
@@ -2078,8 +2077,8 @@
           "columnIds": [
             "16c432b2-ead6-4366-b7a9-78a2fb57345f"
           ],
-          "x": 1659.2777,
-          "y": 417.9999,
+          "x": 1763.2777,
+          "y": 376.9999,
           "direction": 8
         },
         "meta": {
@@ -2126,7 +2125,7 @@
             "2b62a3f1-9cb7-425c-ba2c-c9f20dbc988a"
           ],
           "x": 1495.9237,
-          "y": 1002.5559,
+          "y": 990.5559,
           "direction": 1
         },
         "end": {
@@ -2159,6 +2158,12 @@
       "tableColumnEntities",
       -1,
       1737806512801,
+      {}
+    ],
+    "c5ce2c1e-e0af-4251-b8b8-d246febac714": [
+      "tableColumnEntities",
+      -1,
+      1739617887952,
       {}
     ]
   }
