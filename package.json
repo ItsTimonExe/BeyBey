@@ -25,7 +25,7 @@
         "filepond-plugin-image-preview": "^4.6.12",
         "flowbite": "^3.1.2",
         "flowbite-vue": "^0.1.7",
-        "sweetalert2": "^11.16.0",
+        "sweetalert2": "^11.17.2",
         "swiper": "^11.2.2",
         "vue-chart-3": "^3.1.8",
         "vue-file-upload": "^0.1.12",
