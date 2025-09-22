@@ -65,6 +65,20 @@ BeyBey is a comprehensive e-commerce platform built with PHP and JavaScript. It 
     php artisan serve
     ```
 
+## 📸 Demo
+
+Take a look at some screenshots of BeyBey in action!
+
+<p align="center">
+  <img src="[image1.jpg](https://github.com/ItsTimonExe/BeyBey/blob/master/Image1.jpg)" alt="Homepage Screenshot" width="70%" />
+</p>
+<p align="center">
+  <img src="image2.jpg" alt="Product List Screenshot" width="70%" />
+</p>
+<p align="center">
+  <img src="image3.jpg" alt="Admin Panel Screenshot" width="70%" />
+</p>
+
 ## 📖 Usage
 
 - **Admin Panel**: Manage products, categories, and stock.
