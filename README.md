@@ -69,15 +69,14 @@ BeyBey is a comprehensive e-commerce platform built with PHP and JavaScript. It 
 
 Take a look at some screenshots of BeyBey in action!
 
-<p align="center">
-  <img src="https://github.com/ItsTimonExe/BeyBey/blob/master/Image1.jpg" alt="Homepage Screenshot" width="70%" />
-</p>
-<p align="center">
-  <img src="https://github.com/ItsTimonExe/BeyBey/blob/master/Image2.jpg" alt="Product List Screenshot" width="70%" />
-</p>
-<p align="center">
-  <img src="(https://github.com/ItsTimonExe/BeyBey/blob/master/Image8.jpg" alt="Admin Panel Screenshot" width="70%" />
-</p>
+| Homepage | Shop Page | Product Page |
+|----------|--------------|-------------|
+| <img src="https://raw.githubusercontent.com/ItsTimonExe/BeyBey/master/Image1.jpg" alt="Homepage Screenshot" width="300" /> | <img src="https://raw.githubusercontent.com/ItsTimonExe/BeyBey/master/Image2.jpg" alt="Product List Screenshot" width="300" /> | <img src="https://raw.githubusercontent.com/ItsTimonExe/BeyBey/master/Image3.jpg" alt="Admin Panel Screenshot" width="300" /> |
+
+| Cart Page | Login Page | Admin Panel |
+|----------|--------------|-------------|
+| <img src="https://raw.githubusercontent.com/ItsTimonExe/BeyBey/master/Image4.jpg" alt="Homepage Screenshot" width="300" /> | <img src="https://raw.githubusercontent.com/ItsTimonExe/BeyBey/master/Image6.jpg" alt="Product List Screenshot" width="300" /> | <img src="https://raw.githubusercontent.com/ItsTimonExe/BeyBey/master/Image8.jpg" alt="Admin Panel Screenshot" width="300" /> |
+
 
 ## 📖 Usage
 
